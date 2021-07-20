@@ -1,29 +1,24 @@
-import pandas as pd
-import altair as alt
-
-#URL GitHub Link to Adult Data
-adults = pd.read_csv("https://raw.githubusercontent.com/nicholaslhoest/ScieneFriendA2/main/adult.data.txt")
-
-#Remove Limiter for Rows
-alt.data_transformers.disable_max_rows()
-
-#IV: Job sector, age, education - Scatter Matrix
-#Table Creation
-alt.Chart(adults).mark_circle().encode(
-    alt.X(alt.repeat("column"), type='quantitative'),
-    alt.Y(alt.repeat("row"), type='quantitative'),
-    color='sex'
+alt.Chart(adults).mark_point(filled=True).encode(
+    alt.X('age', scale=alt.Scale(zero=False), title = 'Age'),
+    alt.Y('hours-per-week', scale=alt.Scale(type='log'), title = 'Working Hours'),
+    alt.Size('count(sex)', scale=alt.Scale(range=[0,1000]), title = 'Amount of Woman'),
+    alt.Color('education', title = 'Education Recieved'),
+    alt.OpacityValue(0.7),
+    tooltip = [
+        alt.Tooltip('sex:N'),
+        alt.Tooltip('count(sex):Q'),
+        alt.Tooltip('native-country'),
+        alt.Tooltip('education')
+    ] 
 ).properties(
-    #Desing of Chart
-    width=150,
-    height=150
-).repeat(
-    row=['education-num', 'age', 'hours-per-week'],
-    column=['hours-per-week', 'age', 'education-num']
+    #Chart Designs
+    title = 'Scatter Graph',
+    width=800, height=400
 ).transform_filter(
     #Filter, only show woman
     alt.FieldEqualPredicate(field='sex', equal=' Female')
 ).transform_filter(
-    #Filter age range
     alt.FieldRangePredicate(field='age', range=[20, 35])
-).interactive() #make the graph interactive
+).transform_filter(
+    alt.FieldOneOfPredicate(field='education', oneOf=[' Bachelors', ' Masters', ' Doctorate', ' Prof-school', ' Some-college'])
+).interactive()

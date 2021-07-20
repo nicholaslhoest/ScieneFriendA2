@@ -7,23 +7,22 @@ adults = pd.read_csv("https://raw.githubusercontent.com/nicholaslhoest/ScieneFri
 #Remove Limiter for Rows
 alt.data_transformers.disable_max_rows()
 
-#IV: Job vs. working hours - Layered histogram
-#Table Creation
-alt.Chart(adults).mark_area().encode(
-    #Axis
-    alt.X('count(sex)',scale=alt.Scale(type='sqrt'), title = 'Amount of Woman'),
-    alt.Y('hours-per-week', scale=alt.Scale(zero=False), title = 'Hour'),
-    alt.Color('occupation:N'),
-    alt.OpacityValue(0.5),
-    tooltip = ['sex','count(sex)'], 
+alt.Chart(adults).mark_circle().encode(
+    alt.X(alt.repeat("column"), type='quantitative', bin=alt.BinParams(maxbins=30)),
+    alt.Y(alt.repeat("row"), type='quantitative', bin=alt.BinParams(maxbins=30)),
+    alt.OpacityValue(0.7),
+    color='sex',
+    size=alt.Size('count()', scale=alt.Scale(range=[0, 800]), title = 'amount of females'),
+    
 ).properties(
-    #Chart Designs
-    title = 'Jobs vs. Working Hours',
-    width=800, height=400
+    width=300,
+    height=300
+).repeat(
+    row=['education-num', 'age', 'hours-per-week'],
+    column=['hours-per-week', 'age', 'education-num']
 ).transform_filter(
-    #Fitler by Occupation
-    alt.FieldOneOfPredicate(field='occupation', oneOf=[' Sales', ' Tech-support', ' Other-service'])
+    #Filter, only show woman
+    alt.FieldEqualPredicate(field='sex', equal=' Female')
 ).transform_filter(
-    #Fitler by hours-per-week
-    alt.FieldRangePredicate(field='hours-per-week', range=[30,40])
-)
+    alt.FieldRangePredicate(field='age', range=[20, 35])
+).interactive()

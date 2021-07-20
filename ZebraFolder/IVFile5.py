@@ -7,24 +7,19 @@ adults = pd.read_csv("https://raw.githubusercontent.com/nicholaslhoest/ScieneFri
 #Remove Limiter for Rows
 alt.data_transformers.disable_max_rows()
 
-#IV: Compare highest country of suitable women in above categories with education level 
-# of another country (comparison of what is more important) - Bubble Graph
-#Table Creation
-alt.Chart(adults).mark_point(filled=True).encode(
-    #Axis
-    alt.X('native-country:N'),
-    alt.Y('count()'),
-    alt.Size('count(native-country)', scale=alt.Scale(range=[0,1000])),
-    alt.Color('education'),
-    tooltip = [
-        alt.Tooltip('sex:N'),
-        alt.Tooltip('count(sex):Q'),
-        alt.Tooltip('native-country')
-    ] 
+alt.Chart(adults).mark_bar(size = 5).encode(
+    alt.Y('count(occupation)',scale=alt.Scale(type='sqrt'), title = 'Amount of Woman'),
+    alt.X('hours-per-week', scale=alt.Scale(zero=False), title = 'Hour'),
+    alt.Color('occupation:N'),
+    alt.OpacityValue(0.5),
+    tooltip = ['sex','count(sex)','occupation'], 
+).properties(
+    #Chart Designs
+    title = 'Jobs vs. Working Hours',
+    width=800, height=400
 ).transform_filter(
     #Filter, only show woman
     alt.FieldEqualPredicate(field='sex', equal=' Female')
 ).transform_filter(
-     #Filter age range
-    alt.FieldRangePredicate(field='age', range=[20, 35])
-)
+    alt.FieldOneOfPredicate(field='occupation', oneOf=[' Sales', ' Tech-support', ' Puerto-Rico', ' Other-service', ' Machine-op-inspct'])
+).interactive()

@@ -7,24 +7,19 @@ adults = pd.read_csv("https://raw.githubusercontent.com/nicholaslhoest/ScieneFri
 #Remove Limiter for Rows
 alt.data_transformers.disable_max_rows()
 
-#IV: Women, Salary, Age, Country (location of most women in the suitable categories) - Bar Chart
-#Table Creation
 alt.Chart(adults).mark_bar().encode(
-    #Axis
-    alt.Y('count(sex)', title = 'Amount of Woman'),
+    alt.Y('count(sex)', title = 'Amount of Women', scale=alt.Scale(type='log')),
     alt.X('native-country:N', title = 'Country Resides'),
     tooltip = ['sex','count(sex)']
 ).properties(
     #Chart Designs
-    title = 'Frequency of Woman based on Requirements',
+    title = 'Frequency of Women based on Country and Age Requirements',
     width=800, height=400
 ).transform_filter(
     #Filter, only show woman
     alt.FieldEqualPredicate(field='sex', equal=' Female')
 ).transform_filter(
-    #Filter age range
     alt.FieldRangePredicate(field='age', range=[20, 35])
 ).transform_filter(
-    #Filter by country
     alt.FieldOneOfPredicate(field='native-country', oneOf=[' United-States', ' England', ' Puerto-Rico', ' Canada', ' Outlying-US(Guam-USVI-etc)', ' Philippines', ' Jamaica', ' Ireland', ' Scotland', ' Trinadad&Tobago', ' Holand-Netherlands'])
 )

@@ -11,9 +11,8 @@ alt.data_transformers.disable_max_rows()
 #Table Creation
 alt.Chart(adults).mark_bar().encode(
     #Axis
-    alt.Y('count(sex)', title = 'Amount of Woman'),
-    alt.X('native-country:N', title = 'Country Resides'),
-    alt.Color('sex'),
+    alt.Y('count(sex):N', title = 'Amount of Woman', scale=alt.Scale(type='log')),
+    alt.X('native-country:N', title = 'Country Resides', scale=alt.Scale(zero=False)),
     tooltip = ['sex','count(sex)']
 ).properties(
     #Chart Designs
