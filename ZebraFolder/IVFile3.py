@@ -8,12 +8,12 @@ adults = pd.read_csv("https://raw.githubusercontent.com/nicholaslhoest/ScieneFri
 alt.data_transformers.disable_max_rows()
 
 bluechart = alt.Chart(adults).mark_bar().encode(
-    alt.Y('count(sex)', title = 'Amount of Woman', scale=alt.Scale(type='log')),
+    alt.Y('count(sex)', scale=alt.Scale(type='log')),
     alt.X('hours-per-week:Q', scale=alt.Scale(zero=False), title = 'Working Hours per Week'),
     tooltip = ['sex','count(sex)']
 ).properties(
     #Chart Designs
-    title = 'Frequency of Woman by Working Hours Per Week',
+    title = 'Amount of Women by Working Hours Per Week',
     width=800, height=400
 ).transform_filter(
     #Filter, only show woman
@@ -27,7 +27,7 @@ orangechart = alt.Chart(adults).mark_bar().encode(
     tooltip = ['sex','count(sex)']
 ).properties(
     #Chart Designs
-    title = 'Frequency of Women by Working Hours Per Week',
+    title = 'Amount of Women by Working Hours Per Week',
     width=800, height=400
 ).transform_filter(
     #Filter, only show woman

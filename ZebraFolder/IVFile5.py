@@ -7,8 +7,8 @@ adults = pd.read_csv("https://raw.githubusercontent.com/nicholaslhoest/ScieneFri
 #Remove Limiter for Rows
 alt.data_transformers.disable_max_rows()
 
-alt.Chart(adults).mark_bar(size = 5).encode(
-    alt.Y('count(occupation)',scale=alt.Scale(type='sqrt'), title = 'Amount of Woman'),
+alt.Chart(adults).mark_bar(size = 8).encode(
+    alt.Y('count(occupation)',scale=alt.Scale(type='sqrt'), title = 'Amount of Women'),
     alt.X('hours-per-week', scale=alt.Scale(zero=False), title = 'Hour'),
     alt.Color('occupation:N'),
     alt.OpacityValue(0.5),

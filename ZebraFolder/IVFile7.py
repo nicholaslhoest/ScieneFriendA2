@@ -1,7 +1,7 @@
 alt.Chart(adults).mark_point(filled=True).encode(
     alt.X('age', scale=alt.Scale(zero=False), title = 'Age'),
     alt.Y('hours-per-week', scale=alt.Scale(type='log'), title = 'Working Hours'),
-    alt.Size('count(sex)', scale=alt.Scale(range=[0,1000]), title = 'Amount of Woman'),
+    alt.Size('count(sex)', scale=alt.Scale(range=[0,1000]), title = 'Amount of Women'),
     alt.Color('education', title = 'Education Recieved'),
     alt.OpacityValue(0.7),
     tooltip = [

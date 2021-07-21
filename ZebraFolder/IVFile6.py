@@ -12,7 +12,7 @@ alt.Chart(adults).mark_circle().encode(
     alt.Y(alt.repeat("row"), type='quantitative', bin=alt.BinParams(maxbins=30)),
     alt.OpacityValue(0.7),
     color='sex',
-    size=alt.Size('count()', scale=alt.Scale(range=[0, 800]), title = 'amount of females'),
+    size=alt.Size('count()', scale=alt.Scale(range=[0, 800]), title = 'Amount of Women'),
     
 ).properties(
     width=300,

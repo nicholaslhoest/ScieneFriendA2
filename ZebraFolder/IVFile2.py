@@ -13,12 +13,12 @@ legend = pd.DataFrame(
 alt.data_transformers.disable_max_rows()
 
 bluechart = alt.Chart(adults).mark_bar().encode(
-    alt.Y('count(sex)', title = 'Amount of Woman'),
+    alt.Y('count(sex)', title = 'Amount of Women'),
     alt.X('age:Q', scale=alt.Scale(zero=False), title = 'Age'),
     tooltip = ['sex','count(sex)']
 ).properties(
     #Chart Designs
-    title = 'Frequency of Woman by Age',
+    title = 'Amount of Women by Age',
     width=800, height=400
 ).transform_filter(
     #Filter, only show woman
@@ -26,12 +26,12 @@ bluechart = alt.Chart(adults).mark_bar().encode(
 )
 
 orangechart = alt.Chart(adults).mark_bar(color = 'orange').encode(
-    alt.Y('count(sex)', title = 'Amount of Women'),
+    alt.Y('count(sex)'),
     alt.X('age:Q', scale=alt.Scale(zero=False), title = 'Age'),
     tooltip = ['sex','count(sex)']
 ).properties(
     #Chart Designs
-    title = 'Frequency of Woman by Age',
+    title = 'Amount of Women by Age',
     width=800, height=400
 ).transform_filter(
     #Filter, only show woman

@@ -13,7 +13,7 @@ alt.Chart(adults).mark_bar().encode(
     tooltip = ['sex','count(sex)']
 ).properties(
     #Chart Designs
-    title = 'Frequency of Women based on Country and Age Requirements',
+    title = 'Amount of Women based on Country and Age Requirements',
     width=800, height=400
 ).transform_filter(
     #Filter, only show woman
